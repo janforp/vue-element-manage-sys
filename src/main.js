@@ -18,6 +18,8 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-default/index.css';
 Vue.use(ElementUI);
 
+import 'font-awesome/css/font-awesome.min.css'
+
 //引用axios
 import axios from 'axios';
 window.axios=axios;

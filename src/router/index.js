@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/components/Main';
 import Login from '@/components/Login';
-import Form from '@/components/nav1/Form';
+import Form from '@/components/form/Form';
 import Home from '@/components/Home';
 import stoneList from '@/components/stone/stoneList';
 

@@ -22,7 +22,7 @@ export default new Router({
       path: '/',
       component: Home,
       name: '产品管理',
-      iconCls: 'el-icon-message',//图标样式class
+      iconCls: 'fa fa-id-card-o',//图标样式class
       children: [
         { path: '/main', component: Main, name: '主页', hidden: true },
         { path: '/form', component: Form, name: 'Form' },
@@ -33,7 +33,7 @@ export default new Router({
       path: '/',
       component: Home,
       name: '石头管理',
-      iconCls: 'el-icon-message',//图标样式class
+      iconCls: 'fa fa-address-card',//图标样式class
       children: [
         { path: '/stoneList', component: stoneList, name: '石头列表' },
       ]
@@ -43,7 +43,7 @@ export default new Router({
       path: '/',
       component: Home,
       name: '图表统计',
-      iconCls: 'el-icon-message',//图标样式class
+      iconCls: 'fa fa-bar-chart',//图标样式class
       children: [
         { path: '/echarts', component: echarts, name: 'echarts' },
       ]

@@ -1,79 +1,85 @@
 <template>
-  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
+  <el-form :model="loginModel" :rules="rules2" ref="loginModel" label-position="left" label-width="0px" class="demo-ruleForm login-container">
     <h3 class="title">系统登录</h3>
     <el-form-item prop="account">
-      <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
+      <el-input type="text" v-model="loginModel.account" auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
     <el-form-item prop="checkPass">
-      <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="密码"></el-input>
+      <el-input type="password" v-model="loginModel.checkPass" auto-complete="off" placeholder="密码"></el-input>
     </el-form-item>
-    <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
+    <el-checkbox v-model="isRememberAccount" id="rememberAccount" class="remember">记住密码</el-checkbox>
     <el-form-item style="width:100%;">
-      <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="loginIng">登录</el-button>
-      <!--<el-button @click.native.prevent="handleReset2">重置</el-button>-->
+      <el-button type="primary" style="width:100%;" @click.native.prevent="doLogin()" :loading="loginIng">登录</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
+  import API from "../api/api";
   export default {
     data() {
       return {
         loginIng: false,
-        ruleForm2: {
-          account: 'admin',
-          checkPass: '123456'
+        loginModel: {
+          account: '',
+          checkPass: ''
         },
         rules2: {
           account: [
             { required: true, message: '请输入账号', trigger: 'blur' },
-            //{ validator: validaePass }
           ],
           checkPass: [
             { required: true, message: '请输入密码', trigger: 'blur' },
-            //{ validator: validaePass2 }
           ]
         },
-        checked: true
+        isRememberAccount: false
       };
     },
+    mounted() {
+      this.rememberAccount();
+    },
     methods: {
-      handleReset2() {
-        this.$refs.ruleForm2.resetFields();
+      rememberAccount() {
+        const rememberAccountStr = Cookies.get("rememberAccount");
+        if(rememberAccountStr !== undefined) {
+          const rememberAccount = JSON.parse(rememberAccountStr);
+          this.loginModel.account = rememberAccount.account;
+          this.loginModel.checkPass = rememberAccount.password;
+          this.isRememberAccount=true;
+        }
       },
-      handleSubmit2(ev) {
-        var _this = this;
-        this.$refs.ruleForm2.validate((valid) => {
-          if (valid) {
-            //_this.$router.replace('/table');
-            this.loginIng = true;
-            //NProgress.start();
-            var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass };
-            requestLogin(loginParams).then(data => {
-              this.loginIng = false;
-              //NProgress.done();
-              let { msg, code, user } = data;
-              if (code !== 200) {
-                this.$message({
-                  message: msg,
-                  type: 'error'
-                });
-              } else {
-                sessionStorage.setItem('user', JSON.stringify(user));
-                this.$router.push({ path: '/table' });
-              }
-            });
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
+      doLogin() {
+        const _this = this;
+        this.loginIng = true;
+        API.loginAPI(
+          _this.loginModel.account,_this.loginModel.checkPass,
+          function (result) {
+            _this.loginIng=false;
+            //登录成功之后，把用户数据存入 cookie
+            if (_this.isRememberAccount) {
+              const rememberAccount = {
+                account:_this.loginModel.account,
+                password:_this.loginModel.checkPass,
+                isRememberAccount:true
+              };
+              Cookies.set("rememberAccount", JSON.stringify(rememberAccount));
+            }else {
+              Cookies.remove("rememberAccount");
+            }
+            _this.$router.push('stoneList')
+          },
+          function (message) {
+            alert(message);
+            _this.loginIng=false;
+
+          });
       }
     }
   }
 
 </script>
 
+<!--cnpm install node-sass sass-loader scss-loader —save-dev-->
 <style lang="scss" scoped>
   .login-container {
     /*box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);*/

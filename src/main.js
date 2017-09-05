@@ -6,6 +6,10 @@ import router from './router';
 import cookie from 'js-cookie';
 window.Cookies=cookie;
 
+//引用 api.js
+import api from './api/api';
+window.API=api;
+
 //ElementUI
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-default/index.css';

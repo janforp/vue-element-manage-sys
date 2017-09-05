@@ -1,13 +1,10 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
-import App from './App'
+import Vue from 'vue';
+import App from './App';
 import router from './router';
 
 //引用cookie
 import cookie from 'js-cookie';
 window.Cookies=cookie;
-
 
 //ElementUI
 import ElementUI from 'element-ui';
@@ -17,6 +14,7 @@ Vue.use(ElementUI);
 //引用axios
 import axios from 'axios';
 window.axios=axios;
+
 //网络请求全局配置
 axios.defaults.baseURL='http://localhost:9002/';
 //所有网络请求 (发送) 拦截器
@@ -33,7 +31,7 @@ axios.interceptors.request.use(
 //所有网络请求 (响应) 拦截器
 axios.interceptors.response.use(
   function (response) {
-    if (response.data.code != 0) {
+    if (response.data.code !== 0) {
       console.log("返回异常 ：", response.data);
     }else {
       console.log('返回: ' + response.config.url + "\n" , response.data.data);
@@ -48,7 +46,6 @@ axios.interceptors.response.use(
 
 Vue.config.productionTip = false;
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,

@@ -11,8 +11,8 @@
 			</el-col>
 			<el-col :span="4" class="userinfo">
 				<el-dropdown trigger="hover">
-					<!--<span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span>-->
-          <span class="el-dropdown-link userinfo-inner"><img src="../assets/logo.png" /> {{sysUserName}}</span>
+					<span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span>
+          <!--<span class="el-dropdown-link userinfo-inner"><img src="../assets/logo.png" /> Janita</span>-->
           <el-dropdown-menu slot="dropdown">
 						<el-dropdown-item>我的消息</el-dropdown-item>
 						<el-dropdown-item>设置</el-dropdown-item>
@@ -76,7 +76,7 @@
 	export default {
 		data() {
 			return {
-				sysName:'VUEADMIN',
+				sysName:'管理系统',
 				collapsed:false,
 				sysUserName: '',
 				sysUserAvatar: '',
@@ -127,21 +127,17 @@
 			}
 		},
 		mounted() {
-			var user = sessionStorage.getItem('user');
-			if (user) {
-				user = JSON.parse(user);
-				this.sysUserName = user.name || '';
-				this.sysUserAvatar = user.avatar || '';
-			}
-
+			let user = LOGIN.getUserInfo();
+			if(user) {
+        this.sysUserName = user.username;
+        this.sysUserAvatar = user.icon;
+      }
 		}
 	}
 
 </script>
 
 <style scoped lang="scss">
-	/*@import '~scss_vars';*/
-
 	.container {
 		position: absolute;
 		top: 0px;

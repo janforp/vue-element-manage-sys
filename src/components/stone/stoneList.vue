@@ -45,12 +45,6 @@
         <el-form-item label="名称" prop="stoneName">
           <el-input v-model="addForm.stoneName" auto-complete="off"></el-input>
         </el-form-item>
-        <!--<el-form-item label="性别">-->
-          <!--<el-radio-group v-model="addForm.sex">-->
-            <!--<el-radio class="radio" :label="1">男</el-radio>-->
-            <!--<el-radio class="radio" :label="0">女</el-radio>-->
-          <!--</el-radio-group>-->
-        <!--</el-form-item>-->
         <el-form-item label="进价">
           <el-input-number v-model="addForm.costPrice" :min="0" ></el-input-number>
         </el-form-item>
@@ -60,9 +54,6 @@
         <el-form-item label="数量">
           <el-input-number v-model="addForm.remainNum" :min="0" ></el-input-number>
         </el-form-item>
-        <!--<el-form-item label="生日">-->
-          <!--<el-date-picker type="date" placeholder="选择日期" v-model="addForm.birth"></el-date-picker>-->
-        <!--</el-form-item>-->
         <el-form-item label="特点">
           <el-input type="textarea" v-model="addForm.sellPoints"></el-input>
         </el-form-item>

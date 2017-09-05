@@ -16,6 +16,7 @@
 
 <script>
   import API from "../api/api";
+  import LOGIN from "../api/login";
   export default {
     data() {
       return {
@@ -55,11 +56,13 @@
           _this.loginModel.account,_this.loginModel.checkPass,
           function (result) {
             _this.loginIng=false;
+            LOGIN.setUserInfoToCookie(result);
             //登录成功之后，把用户数据存入 cookie
             if (_this.isRememberAccount) {
               const rememberAccount = {
                 account:_this.loginModel.account,
                 password:_this.loginModel.checkPass,
+                icon:result.icon,
                 isRememberAccount:true
               };
               Cookies.set("rememberAccount", JSON.stringify(rememberAccount));
@@ -71,7 +74,6 @@
           function (message) {
             alert(message);
             _this.loginIng=false;
-
           });
       }
     }

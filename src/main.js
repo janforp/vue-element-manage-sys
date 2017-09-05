@@ -10,6 +10,9 @@ window.Cookies=cookie;
 import api from './api/api';
 window.API=api;
 
+import login from './api/login';
+window.LOGIN=login;
+
 //ElementUI
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-default/index.css';

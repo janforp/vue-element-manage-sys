@@ -22,8 +22,8 @@
       return {
         loginIng: false,
         loginModel: {
-          account: '',
-          checkPass: ''
+          account: 'janita',
+          checkPass: '123'
         },
         rules2: {
           account: [
